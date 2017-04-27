@@ -1,4 +1,4 @@
-package Model;
+package Gaufrette.Model;
 
 public class Case {
 	
@@ -22,5 +22,13 @@ public class Case {
 	
 	public boolean estMangee(){
 		return this.type == MANGEE;
+	}
+
+	public void manger() {
+		this.type = MANGEE;
+	}
+
+	public String toString(){
+		return ""+this.type;
 	}
 }
