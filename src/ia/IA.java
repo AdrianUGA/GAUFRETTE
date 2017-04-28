@@ -3,41 +3,28 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Gaufrette.Model.Coordonnees;
 import Gaufrette.Model.Joueur;
+import Gaufrette.Vue.App;
 
 public class IA implements Joueur{
 
 	// Our IA's first name is Jean and is second name is Sebastien, please be careful when you call it.
 	
-	private static final String NOM_PAR_DÉFAUT = "Michel Ocello";
+	private static final String NOM_PAR_DÃ‰FAUT = "Michel Ocello";
 	
 	
-	public Difficulté Difficulté;
+	public DifficultÃ© DifficultÃ©;
 	private String nom;
+	private App app;
 	
-	public IA(){
-		this.init(Difficulté.facile, NOM_PAR_DÉFAUT);
-	}
-	
-	public IA(Difficulté Difficulté){
-		this.init(Difficulté, NOM_PAR_DÉFAUT);
-	}
-	
-	public IA(String nom){
-		this.init(Difficulté.facile, nom);
-	}
-	
-	public IA(Difficulté Difficulté, String nom){
-		this.init(Difficulté, nom);
-	}
-	
-	private void init(Difficulté Difficulté, String nom){
-		this.Difficulté = Difficulté;
-		this.nom = nom;
+	public IA(App app){
+		this.app = app;
+		this.DifficultÃ© = DifficultÃ©.facile;
+		this.nom = NOM_PAR_DÃ‰FAUT;
 	}
 	
 	@Override
 	public Coordonnees jouer() {
-		switch(this.Difficulté){
+		switch(this.DifficultÃ©){
 			case facile:
 				return this.jouerCommeUnNul();
 			case moyen:
@@ -91,7 +78,7 @@ public class IA implements Joueur{
 					return new Coordonnees(1,2);
 				}
 				else{
-					// Aléatoire
+					// AlÃ©atoire
 					return jouerCommeUnNul(); 
 				}
 			}
@@ -105,7 +92,7 @@ public class IA implements Joueur{
 					return new Coordonnees(2,1);
 				}
 				else{
-					// Aléatoire
+					// AlÃ©atoire
 					return jouerCommeUnNul();
 				}
 			}
@@ -115,7 +102,7 @@ public class IA implements Joueur{
 				return new Coordonnees(1,1);
 			}
 			else{
-				// Aléatoire
+				// AlÃ©atoire
 				return jouerCommeUnNul();
 			}
 		}
@@ -126,11 +113,11 @@ public class IA implements Joueur{
 			return new Coordonnees(0, maxWidth-maxHeight-1);
 		}
 		else{
-			// Aléatoire
+			// AlÃ©atoire
 			return jouerCommeUnNul();
 		}
-		// La fonction doit être terminée ici, si la ligne suivante s'affiche l'algo est bugué
-		System.out.println("Problème algo difficile");
+		// La fonction doit Ã©tre terminÃ©e ici, si la ligne suivante s'affiche l'algo est buguÃ©
+		System.out.println("ProblÃ©me algo difficile");
 		return jouerCommeUnNul();
 	}
 		
@@ -250,6 +237,11 @@ public class IA implements Joueur{
 	
 	public IA setNom(String nom){
 		this.nom = nom;
+		return this;
+	}
+	
+	public IA setDifficultÃ©(DifficultÃ© difficultÃ©){
+		this.DifficultÃ© = difficultÃ©;
 		return this;
 	}
 	
