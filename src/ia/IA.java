@@ -8,36 +8,36 @@ public class IA implements Joueur{
 
 	// Our IA's first name is Jean and is second name is Sebastien, please be careful when you call it.
 	
-	private static final String NOM_PAR_DÃ‰FAUT = "Michel Ocello";
+	private static final String NOM_PAR_DÉFAUT = "Michel Ocello";
 	
 	
-	public DifficultÃ© difficultÃ©;
+	public Difficulté Difficulté;
 	private String nom;
 	
 	public IA(){
-		this.init(DifficultÃ©.facile, NOM_PAR_DÃ‰FAUT);
+		this.init(Difficulté.facile, NOM_PAR_DÉFAUT);
 	}
 	
-	public IA(DifficultÃ© difficultÃ©){
-		this.init(difficultÃ©, NOM_PAR_DÃ‰FAUT);
+	public IA(Difficulté Difficulté){
+		this.init(Difficulté, NOM_PAR_DÉFAUT);
 	}
 	
 	public IA(String nom){
-		this.init(DifficultÃ©.facile, nom);
+		this.init(Difficulté.facile, nom);
 	}
 	
-	public IA(DifficultÃ© difficultÃ©, String nom){
-		this.init(difficultÃ©, nom);
+	public IA(Difficulté Difficulté, String nom){
+		this.init(Difficulté, nom);
 	}
 	
-	private void init(DifficultÃ© difficultÃ©, String nom){
-		this.difficultÃ© = difficultÃ©;
+	private void init(Difficulté Difficulté, String nom){
+		this.Difficulté = Difficulté;
 		this.nom = nom;
 	}
 	
 	@Override
 	public Coordonnees jouer() {
-		switch(this.difficultÃ©){
+		switch(this.Difficulté){
 			case facile:
 				return this.jouerCommeUnNul();
 			case moyen:
@@ -56,8 +56,84 @@ public class IA implements Joueur{
 	}
 
 	private Coordonnees jouerCommeAkys() { // HARD
-		return new Coordonnees(0,0);
+		Integer [][] waffle = createWaffle();
+		
+		int minHeight=0;
+		int maxHeight=0;
+		int minWidth=0;
+		int maxWidth=0;
+		
+		if(waffle[1][0] != 3){ // We check if we have at least 2 lines not eaten
+			minHeight = 1;
+		}
+		if(waffle[0][1] != 3){ // We check if we have at least 2 columns not eaten
+			minWidth = 1;
+		}
+		
+		for(int i=0; i<waffle[0].length;i++){ // Calculating the amount of columns not eaten yet
+			if(waffle[0][i] != 3){
+				maxWidth = i;
+			}
+		}
+		
+		for(int i=0; i<waffle.length;i++){ // Calculating the amount of lines not eaten yet
+			if(waffle[i][0] != 3){
+				maxHeight = i;
+			}
+		}
+		
+		if(maxHeight >= 2 && maxWidth >= 3){
+			if(waffle[1][2] != 3){
+				return new Coordonnees(2,1);
+			}
+			else if(maxHeight >= 3){
+				if(waffle[1][2] != 3){
+					return new Coordonnees(1,2);
+				}
+				else{
+					// Aléatoire
+					return jouerCommeUnNul(); 
+				}
+			}
+		}
+		else if(maxHeight >= 3 && maxWidth >= 2){
+			if(waffle[2][1] != 3){
+				return new Coordonnees(1,2);
+			}
+			else if(maxWidth>=3){
+				if(waffle[1][2] != 3){
+					return new Coordonnees(2,1);
+				}
+				else{
+					// Aléatoire
+					return jouerCommeUnNul();
+				}
+			}
+		}
+		else if(maxHeight == 2 && maxWidth == 2){
+			if(waffle[1][1] != 3){
+				return new Coordonnees(1,1);
+			}
+			else{
+				// Aléatoire
+				return jouerCommeUnNul();
+			}
+		}
+		else if(maxHeight > maxWidth){
+			return new Coordonnees(maxHeight-maxWidth-1, 0);
+		}
+		else if(maxWidth > maxHeight){
+			return new Coordonnees(0, maxWidth-maxHeight-1);
+		}
+		else{
+			// Aléatoire
+			return jouerCommeUnNul();
+		}
+		// La fonction doit être terminée ici, si la ligne suivante s'affiche l'algo est bugué
+		System.out.println("Problème algo difficile");
+		return jouerCommeUnNul();
 	}
+		
 
 	private Coordonnees jouerCommeUnMecLambda() { // MEDIUM
 		
@@ -65,8 +141,8 @@ public class IA implements Joueur{
 		
 		// Medium AI will play randomly, but won't play a losing move:
 		// X O O O O		In this situation 
+		// O O 
 		// O O <----------- AI won't eat this piece
-		// O
 		// O
 		
 		int minHeight=0;
