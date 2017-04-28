@@ -19,7 +19,7 @@ public class Gaufre {
 	}
 
 	public boolean peutManger(Coordonnees c){
-		return c.x >= 0 && c.x < largeur && c.y >= 0 && c.y < hauteur && this.cases[c.y][c.x].estMangeable();
+		return c != null && c.x >= 0 && c.x < largeur && c.y >= 0 && c.y < hauteur && this.cases[c.y][c.x].estMangeable();
 	}
 
 	public boolean toutMangees(){
