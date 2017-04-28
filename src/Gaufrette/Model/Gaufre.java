@@ -44,4 +44,9 @@ public class Gaufre {
         }
         return string;
     }
+
+    public Case[][] getCases(){
+    	return this.cases;
+    }
+
 }
