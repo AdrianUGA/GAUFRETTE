@@ -1,13 +1,13 @@
 package Gaufrette.Model;
 
-import Gaufrette.Vue.Application;
+import Gaufrette.Vue.App;
 
 public class Humain implements Joueur{
 
 	private String nom;
-	private Application app;
+	private App app;
 	
-	public Humain(Application app, String nom){
+	public Humain(App app, String nom){
 		this.nom = nom;
 		this.app = app;
 	}

@@ -1,17 +1,15 @@
 package Gaufrette.Model;
 
-import Gaufrette.Vue.Application;
+import Gaufrette.Vue.App;
 
 public class Jeu {
 
 	private Gaufre gaufre;
 	private Joueur[] joueurs;
     private int joueurCourant;
-    private Application application;
-	
-	public Jeu(Application application){
+
+	public Jeu(){
 		this.joueurs = new Joueur[2];
-		this.application = application;
 	}
 	
 	public void nouveauJeu(Joueur j1, Joueur j2, int largeurGaufre, int hauteurGaufre){
@@ -21,39 +19,19 @@ public class Jeu {
 		this.gaufre = new Gaufre(largeurGaufre, hauteurGaufre);
 	}
 
-	public void jouerPartie(){
-
-        while(!this.partieTerminee()){
-            this.nextJoueur();
-            Joueur j = getJoueurCourant();
-            this.application.rafraichir(this);
-            Coordonnees c;
-            boolean coupValide = false;
-            do {
-                c = j.jouer();
-                coupValide = this.coupEstValide(c);
-                if (!coupValide){
-                    this.application.coupInvalide();
-                }
-            } while (!coupValide);
-            this.jouerCoup(c);
-        }
-        this.application.fin(this);
-    }
-
-	private boolean coupEstValide(Coordonnees c){
+	public boolean coupEstValide(Coordonnees c){
         return this.gaufre.peutManger(c);
     }
 
-	private void jouerCoup(Coordonnees c){
+    public void jouerCoup(Coordonnees c){
         this.gaufre.manger(c);
 	}
 
-	private void nextJoueur(){
+    public void nextJoueur(){
         this.joueurCourant = (this.joueurCourant + 1) % 2;
     }
 
-	private boolean partieTerminee(){
+    public boolean partieTerminee(){
 		return this.gaufre.toutMangees();
 	}
 
