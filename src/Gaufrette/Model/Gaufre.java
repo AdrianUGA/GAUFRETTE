@@ -12,10 +12,10 @@ public class Gaufre {
 		this.hauteur = h;
 		for (int i = 0; i < h; i++){
 			for(int j = 0; j < l; j++){
-				this.cases[i][j] = new Case(Case.MANGEABLE);
+				this.cases[i][j] = Case.MANGEABLE;
 			}
 		}
-		this.cases[0][0] = new Case(Case.POISON);
+		this.cases[0][0] = Case.POISON;
 	}
 
 	public boolean peutManger(Coordonnees c){

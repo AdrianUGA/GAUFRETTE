@@ -52,31 +52,31 @@ public class IA implements Joueur{
 		int minWidth=0;
 		int maxWidth=0;
 		
-		if(waffle[1][0].getType() != 3){ // We check if we have at least 2 lines not eaten
+		if(waffle[1][0] != Case.MANGEE){ // We check if we have at least 2 lines not eaten
 			minHeight = 1;
 		}
-		if(waffle[0][1].getType() != 3){ // We check if we have at least 2 columns not eaten
+		if(waffle[0][1] != Case.MANGEE){ // We check if we have at least 2 columns not eaten
 			minWidth = 1;
 		}
 		
 		for(int i=0; i<waffle[0].length;i++){ // Calculating the amount of columns not eaten yet
-			if(waffle[0][i].getType() != 3){
+			if(waffle[0][i] != Case.MANGEE){
 				maxWidth = i;
 			}
 		}
 		
 		for(int i=0; i<waffle.length;i++){ // Calculating the amount of lines not eaten yet
-			if(waffle[i][0].getType() != 3){
+			if(waffle[i][0] != Case.MANGEE){
 				maxHeight = i;
 			}
 		}
 		
 		if(maxHeight >= 2 && maxWidth >= 3){
-			if(waffle[1][2].getType() != 3){
+			if(waffle[1][2] != Case.MANGEE){
 				return new Coordonnees(2,1);
 			}
 			else if(maxHeight >= 3){
-				if(waffle[1][2].getType() != 3){
+				if(waffle[1][2] != Case.MANGEE){
 					return new Coordonnees(1,2);
 				}
 				else{
@@ -86,11 +86,11 @@ public class IA implements Joueur{
 			}
 		}
 		else if(maxHeight >= 3 && maxWidth >= 2){
-			if(waffle[2][1].getType() != 3){
+			if(waffle[2][1] != Case.MANGEE){
 				return new Coordonnees(1,2);
 			}
 			else if(maxWidth>=3){
-				if(waffle[1][2].getType() != 3){
+				if(waffle[1][2] != Case.MANGEE){
 					return new Coordonnees(2,1);
 				}
 				else{
@@ -100,7 +100,7 @@ public class IA implements Joueur{
 			}
 		}
 		else if(maxHeight == 2 && maxWidth == 2){
-			if(waffle[1][1].getType() != 3){
+			if(waffle[1][1] != Case.MANGEE){
 				return new Coordonnees(1,1);
 			}
 			else{
@@ -142,21 +142,21 @@ public class IA implements Joueur{
 		int x = 0;
 		int y = 0;
 		
-		if(waffle[1][0].getType() != 3){ // We check if we have at least 2 lines not eaten
+		if(waffle[1][0] != Case.MANGEE){ // We check if we have at least 2 lines not eaten
 			minHeight = 1;
 		}
-		if(waffle[0][1].getType() != 3){ // We check if we have at least 2 columns not eaten
+		if(waffle[0][1] != Case.MANGEE){ // We check if we have at least 2 columns not eaten
 			minWidth = 1;
 		}
 		
 		for(int i=0; i<waffle[0].length;i++){ // Calculating the amount of columns not eaten yet
-			if(waffle[0][i].getType() != 3){
+			if(waffle[0][i] != Case.MANGEE){
 				maxWidth = i;
 			}
 		}
 		
 		for(int i=0; i<waffle.length;i++){ // Calculating the amount of lines not eaten yet
-			if(waffle[i][0].getType() != 3){
+			if(waffle[i][0] != Case.MANGEE){
 				maxHeight = i;
 			}
 		}
@@ -164,7 +164,7 @@ public class IA implements Joueur{
 		x = ThreadLocalRandom.current().nextInt(minHeight, maxHeight); // Choosing the line
 		
 		for(int i=0; i<waffle[x].length;i++){ // Calculating the amount of columns not eaten in our line
-			if(waffle[x][i].getType() != 3){
+			if(waffle[x][i] != Case.MANGEE){
 				maxWidthForSpecificHeight = i;
 			}
 		}
@@ -190,15 +190,15 @@ public class IA implements Joueur{
 		int minWidth=0;
 		int maxWidth=0;
 		
-		if(waffle[1][0].getType() != 3){ // We check if we have at least 2 lines not eaten
+		if(waffle[1][0] != Case.MANGEE){ // We check if we have at least 2 lines not eaten
 			minHeight = 1;
 		}
-		if(waffle[0][1].getType() != 3){ // We check if we have at least 2 columns not eaten
+		if(waffle[0][1] != Case.MANGEE){ // We check if we have at least 2 columns not eaten
 			minWidth = 1;
 		}
 		
 		for(int i=0; i<waffle.length;i++){ // Calculating the amount of lines not eaten yet
-			if(waffle[i][0].getType() != 3){
+			if(waffle[i][0] != Case.MANGEE){
 				maxHeight = i;
 			}
 		}
@@ -206,7 +206,7 @@ public class IA implements Joueur{
 		int x = ThreadLocalRandom.current().nextInt(minHeight, maxHeight); // Choosing the line
 		
 		for(int i=0; i<waffle[x].length;i++){ // Calculating the amount of columns not eaten in our line
-			if(waffle[x][i].getType() != 3){
+			if(waffle[x][i] != Case.MANGEE){
 				maxWidth = i;
 			}
 		}
