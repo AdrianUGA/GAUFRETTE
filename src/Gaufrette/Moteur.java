@@ -26,7 +26,7 @@ public class Moteur {
     }
 
     public void demarrerPartie(){
-    	Joueur ia = new IA(this.app).setNom("o1").setDifficulté(Difficulté.facile);
+    	Joueur ia = new IA(this.jeu).setNom("o1").setDifficulté(Difficulté.facile);
         Joueur j1 = new Humain(this.app, "j1");
         Joueur j2 = new Humain(this.app, "j2");
         this.jeu.nouveauJeu(j1, j2, 20, 10);

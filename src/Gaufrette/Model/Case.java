@@ -31,4 +31,8 @@ public class Case {
 	public String toString(){
 		return ""+this.type;
 	}
+	
+	public int getType(){
+		return this.type;
+	}
 }

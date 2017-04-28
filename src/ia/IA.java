@@ -1,7 +1,9 @@
 package ia;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Gaufrette.Model.Case;
 import Gaufrette.Model.Coordonnees;
+import Gaufrette.Model.Jeu;
 import Gaufrette.Model.Joueur;
 import Gaufrette.Vue.App;
 
@@ -14,10 +16,10 @@ public class IA implements Joueur{
 	
 	public Difficulté Difficulté;
 	private String nom;
-	private App app;
+	private Jeu jeu;
 	
-	public IA(App app){
-		this.app = app;
+	public IA(Jeu jeu){
+		this.jeu = jeu;
 		this.Difficulté = Difficulté.facile;
 		this.nom = NOM_PAR_DÉFAUT;
 	}
@@ -43,38 +45,38 @@ public class IA implements Joueur{
 	}
 
 	private Coordonnees jouerCommeAkys() { // HARD
-		Integer [][] waffle = createWaffle();
+		Case [][] waffle = this.jeu.getGaufre().getCases();
 		
 		int minHeight=0;
 		int maxHeight=0;
 		int minWidth=0;
 		int maxWidth=0;
 		
-		if(waffle[1][0] != 3){ // We check if we have at least 2 lines not eaten
+		if(waffle[1][0].getType() != 3){ // We check if we have at least 2 lines not eaten
 			minHeight = 1;
 		}
-		if(waffle[0][1] != 3){ // We check if we have at least 2 columns not eaten
+		if(waffle[0][1].getType() != 3){ // We check if we have at least 2 columns not eaten
 			minWidth = 1;
 		}
 		
 		for(int i=0; i<waffle[0].length;i++){ // Calculating the amount of columns not eaten yet
-			if(waffle[0][i] != 3){
+			if(waffle[0][i].getType() != 3){
 				maxWidth = i;
 			}
 		}
 		
 		for(int i=0; i<waffle.length;i++){ // Calculating the amount of lines not eaten yet
-			if(waffle[i][0] != 3){
+			if(waffle[i][0].getType() != 3){
 				maxHeight = i;
 			}
 		}
 		
 		if(maxHeight >= 2 && maxWidth >= 3){
-			if(waffle[1][2] != 3){
+			if(waffle[1][2].getType() != 3){
 				return new Coordonnees(2,1);
 			}
 			else if(maxHeight >= 3){
-				if(waffle[1][2] != 3){
+				if(waffle[1][2].getType() != 3){
 					return new Coordonnees(1,2);
 				}
 				else{
@@ -84,11 +86,11 @@ public class IA implements Joueur{
 			}
 		}
 		else if(maxHeight >= 3 && maxWidth >= 2){
-			if(waffle[2][1] != 3){
+			if(waffle[2][1].getType() != 3){
 				return new Coordonnees(1,2);
 			}
 			else if(maxWidth>=3){
-				if(waffle[1][2] != 3){
+				if(waffle[1][2].getType() != 3){
 					return new Coordonnees(2,1);
 				}
 				else{
@@ -98,7 +100,7 @@ public class IA implements Joueur{
 			}
 		}
 		else if(maxHeight == 2 && maxWidth == 2){
-			if(waffle[1][1] != 3){
+			if(waffle[1][1].getType() != 3){
 				return new Coordonnees(1,1);
 			}
 			else{
@@ -124,7 +126,7 @@ public class IA implements Joueur{
 
 	private Coordonnees jouerCommeUnMecLambda() { // MEDIUM
 		
-		Integer [][] waffle = createWaffle();
+		Case [][] waffle = this.jeu.getGaufre().getCases();
 		
 		// Medium AI will play randomly, but won't play a losing move:
 		// X O O O O		In this situation 
@@ -140,21 +142,21 @@ public class IA implements Joueur{
 		int x = 0;
 		int y = 0;
 		
-		if(waffle[1][0] != 3){ // We check if we have at least 2 lines not eaten
+		if(waffle[1][0].getType() != 3){ // We check if we have at least 2 lines not eaten
 			minHeight = 1;
 		}
-		if(waffle[0][1] != 3){ // We check if we have at least 2 columns not eaten
+		if(waffle[0][1].getType() != 3){ // We check if we have at least 2 columns not eaten
 			minWidth = 1;
 		}
 		
 		for(int i=0; i<waffle[0].length;i++){ // Calculating the amount of columns not eaten yet
-			if(waffle[0][i] != 3){
+			if(waffle[0][i].getType() != 3){
 				maxWidth = i;
 			}
 		}
 		
 		for(int i=0; i<waffle.length;i++){ // Calculating the amount of lines not eaten yet
-			if(waffle[i][0] != 3){
+			if(waffle[i][0].getType() != 3){
 				maxHeight = i;
 			}
 		}
@@ -162,7 +164,7 @@ public class IA implements Joueur{
 		x = ThreadLocalRandom.current().nextInt(minHeight, maxHeight); // Choosing the line
 		
 		for(int i=0; i<waffle[x].length;i++){ // Calculating the amount of columns not eaten in our line
-			if(waffle[x][i] != 3){
+			if(waffle[x][i].getType() != 3){
 				maxWidthForSpecificHeight = i;
 			}
 		}
@@ -179,7 +181,7 @@ public class IA implements Joueur{
 
 	private Coordonnees jouerCommeUnNul() { // EASY
 		
-		Integer [][] waffle = createWaffle();
+		Case [][] waffle = this.jeu.getGaufre().getCases();
 		
 		// Easy AI will play randomly, but won't eat the poisoned piece, except if it has no choice
 		
@@ -188,15 +190,15 @@ public class IA implements Joueur{
 		int minWidth=0;
 		int maxWidth=0;
 		
-		if(waffle[1][0] != 3){ // We check if we have at least 2 lines not eaten
+		if(waffle[1][0].getType() != 3){ // We check if we have at least 2 lines not eaten
 			minHeight = 1;
 		}
-		if(waffle[0][1] != 3){ // We check if we have at least 2 columns not eaten
+		if(waffle[0][1].getType() != 3){ // We check if we have at least 2 columns not eaten
 			minWidth = 1;
 		}
 		
 		for(int i=0; i<waffle.length;i++){ // Calculating the amount of lines not eaten yet
-			if(waffle[i][0] != 3){
+			if(waffle[i][0].getType() != 3){
 				maxHeight = i;
 			}
 		}
@@ -204,7 +206,7 @@ public class IA implements Joueur{
 		int x = ThreadLocalRandom.current().nextInt(minHeight, maxHeight); // Choosing the line
 		
 		for(int i=0; i<waffle[x].length;i++){ // Calculating the amount of columns not eaten in our line
-			if(waffle[x][i] != 3){
+			if(waffle[x][i].getType() != 3){
 				maxWidth = i;
 			}
 		}
@@ -215,21 +217,7 @@ public class IA implements Joueur{
 		// DONE
 	}
 	
-	public Integer[][] createWaffle(){
-		int height = ThreadLocalRandom.current().nextInt(2, 15 + 1);
-		int width = ThreadLocalRandom.current().nextInt(2, 15 + 1);
-		
-		Integer [][] waffle = new Integer[height][width];
-
-		for(int i=0; i<height; i++){ 
-			for(int j=0; j<width; j++){
-				waffle[i][j]=2;
-			}
-		}
-		waffle[0][0] = 1;
-		return waffle;
-	}
-
+	
 	@Override
 	public String getNom() {
 		return this.nom;
