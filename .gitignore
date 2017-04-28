@@ -1,6 +1,6 @@
 /bin/
 .classpath
 .project
-.idea/
+.idea
 GAUFRETTE.iml
 out/
