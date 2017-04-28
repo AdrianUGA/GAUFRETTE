@@ -1,49 +1,65 @@
+package ia;
 import java.util.concurrent.ThreadLocalRandom;
+
+import Gaufrette.Model.Coordonnees;
+import Gaufrette.Model.Joueur;
 
 public class IA implements Joueur{
 
 	// Our IA's first name is Jean and is second name is Sebastien, please be careful when you call it.
 	
-	final static int DIFFICULTY_EASY = 1;
-	final static int DIFFICULTY_MEDIUM = 2;
-	final static int DIFFICULTY_F_CKING_HARD = 3;
+	private static final String NOM_PAR_DÉFAUT = "Michel Ocello";
 	
-	public int difficulty;
+	
+	public Difficulté difficulté;
+	private String nom;
 	
 	public IA(){
-		difficulty = DIFFICULTY_EASY;
+		this.init(Difficulté.facile, NOM_PAR_DÉFAUT);
 	}
 	
-	public IA(int d){
-		difficulty=d;	
+	public IA(Difficulté difficulté){
+		this.init(difficulté, NOM_PAR_DÉFAUT);
+	}
+	
+	public IA(String nom){
+		this.init(Difficulté.facile, nom);
+	}
+	
+	public IA(Difficulté difficulté, String nom){
+		this.init(difficulté, nom);
+	}
+	
+	private void init(Difficulté difficulté, String nom){
+		this.difficulté = difficulté;
+		this.nom = nom;
 	}
 	
 	@Override
-	public Coordinate eatAPieceOfWaffle() {
-		switch(this.difficulty){
-			case DIFFICULTY_EASY:
-				return this.playAsNoob();
-			case DIFFICULTY_MEDIUM:
-				return this.playAsAveragePlayer();
-			case DIFFICULTY_F_CKING_HARD:
-				return this.playAsAkys();
+	public Coordonnees jouer() {
+		switch(this.difficulté){
+			case facile:
+				return this.jouerCommeUnNul();
+			case moyen:
+				return this.jouerCommeUnMecLambda();
+			case p_tain_de_difficile:
+				return this.jouerCommeAkys();
 			default:
-				return this.playAsAdemage();
+				return this.jouerCommeAdemage();
 		}
 		
 	}
 
-	private Coordinate playAsAdemage() {
-		return playAsNoob();
+	private Coordonnees jouerCommeAdemage() {
+		return this.jouerCommeUnNul();
 		
 	}
 
-	private Coordinate playAsAkys() { // HARD
-		// TODO Auto-generated method stub
-		return new Coordinate(0,0);
+	private Coordonnees jouerCommeAkys() { // HARD
+		return new Coordonnees(0,0);
 	}
 
-	private Coordinate playAsAveragePlayer() { // MEDIUM
+	private Coordonnees jouerCommeUnMecLambda() { // MEDIUM
 		
 		Integer [][] waffle = createWaffle();
 		
@@ -94,11 +110,11 @@ public class IA implements Joueur{
 			}while(y==1);
 		}
 		
-		return new Coordinate(x,y);
+		return new Coordonnees(x,y);
 		
 	}
 
-	private Coordinate playAsNoob() { // EASY
+	private Coordonnees jouerCommeUnNul() { // EASY
 		
 		Integer [][] waffle = createWaffle();
 		
@@ -132,7 +148,7 @@ public class IA implements Joueur{
 		
 		int y = ThreadLocalRandom.current().nextInt(minWidth, maxWidth);
 		
-		return new Coordinate(x,y);
+		return new Coordonnees(x,y);
 		// DONE
 	}
 	
@@ -149,6 +165,16 @@ public class IA implements Joueur{
 		}
 		waffle[0][0] = 1;
 		return waffle;
+	}
+
+	@Override
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public IA setNom(String nom){
+		this.nom = nom;
+		return this;
 	}
 	
 }
