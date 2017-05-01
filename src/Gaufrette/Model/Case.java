@@ -1,34 +1,35 @@
 package Gaufrette.Model;
 
-public class Case {
+public enum Case {
 	
-	public final static int MANGEABLE = 0;
-	public final static int POISON = 1;
-	public final static int MANGEE = 2;
+	MANGEABLE(0),
+	POISON(1),
+	MANGEE(2);
 
 	private int type;
 	
-	public Case(int type){
+	private Case(int type){
 		this.type = type;
 	}
 	
 	public boolean estMangeable(){
-		return this.type == MANGEABLE;
+		return this.type == 0;
 	}
 	
 	public boolean estPoison(){
-		return this.type == POISON;
+		return this.type == 1;
 	}
 	
 	public boolean estMangee(){
-		return this.type == MANGEE;
+		return this.type == 2;
 	}
 
 	public void manger() {
-		this.type = MANGEE;
+		this.type = 2;
 	}
 
 	public String toString(){
 		return ""+this.type;
 	}
+
 }
