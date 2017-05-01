@@ -1,11 +1,6 @@
-package ia;
-import java.util.concurrent.ThreadLocalRandom;
+package Gaufrette.Model;
 
-import Gaufrette.Model.Case;
-import Gaufrette.Model.Coordonnees;
-import Gaufrette.Model.Jeu;
-import Gaufrette.Model.Joueur;
-import Gaufrette.Vue.App;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class IA implements Joueur{
 
@@ -14,7 +9,7 @@ public class IA implements Joueur{
 	private static final String NOM_PAR_DÉFAUT = "Michel Ocello";
 	
 	
-	public Difficulté Difficulté;
+	public Gaufrette.Model.Difficulté Difficulté;
 	private String nom;
 	private Jeu jeu;
 	
@@ -232,5 +227,12 @@ public class IA implements Joueur{
 		this.Difficulté = difficulté;
 		return this;
 	}
-	
+
+	public String getType(){
+	    return "ia";
+    }
+
+    public String toString(){
+        return "Joueur IA: " + this.nom;
+    }
 }

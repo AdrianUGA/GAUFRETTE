@@ -1,4 +1,4 @@
-package ia;
+package Gaufrette.Model;
 
 public enum Difficulté {
 	facile,

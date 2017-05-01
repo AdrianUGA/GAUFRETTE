@@ -19,8 +19,7 @@ public class Jeu {
 	    if (type.equals("humain")){
 	        this.joueurs[0] = new Humain(nom);
         }else{
-	        //TODO change to ia
-	        this.joueurs[0] = new Humain(nom);
+	        this.joueurs[0] = new IA(this);
         }
     }
 
@@ -28,8 +27,7 @@ public class Jeu {
         if (type.equals("humain")){
             this.joueurs[1] = new Humain(nom);
         }else{
-            //TODO change to ia
-            this.joueurs[1] = new Humain(nom);
+            this.joueurs[1] = new IA(this);
         }
     }
 

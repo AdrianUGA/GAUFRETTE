@@ -29,7 +29,7 @@ public class Gaufre {
 	public void manger(Coordonnees c){
 		for (int i = c.y; i < this.hauteur; i++){
 			for (int j = c.x; j < this.largeur; j++){
-				this.cases[i][j].manger();
+				this.cases[i][j] = Case.MANGEE;
 			}
 		}
 	}

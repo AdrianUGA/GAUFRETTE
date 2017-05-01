@@ -38,7 +38,7 @@ public class MenuState implements State {
                 System.out.println("gamemode: 1 player");
                 jeu.nouveauJeu(20, 10);
                 jeu.setJoueur1("humain", "j1");
-                jeu.setJoueur2("ia", "j2");
+                jeu.setJoueur2("ia", "ia");
 
                 gsm.change("game");
             }
@@ -52,7 +52,11 @@ public class MenuState implements State {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("gamemode: 2 players");
-                //loadGridFrame();
+                jeu.nouveauJeu(20, 10);
+                jeu.setJoueur1("humain", "j1");
+                jeu.setJoueur2("humain", "j2");
+
+                gsm.change("game");
             }
         });
         two.setLayoutX(224);
@@ -63,8 +67,12 @@ public class MenuState implements State {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("0");
-                //loadGridFrame();
+                System.out.println("gamemode: 2 ia");
+                jeu.nouveauJeu(20, 10);
+                jeu.setJoueur1("ia", "ia1");
+                jeu.setJoueur2("ia", "ia2");
+
+                gsm.change("game");
             }
         });
         zero.setLayoutX(383);

@@ -10,12 +10,15 @@ public class Humain implements Joueur{
 
 	@Override
 	public Coordonnees jouer() {
-        //return this.app.choixJoueurHumain();
-		return new Coordonnees(1,0);
+        return null;
 	}
 
 	public String getNom(){
 	    return this.nom;
+    }
+
+    public String getType(){
+        return "humain";
     }
 
     public String toString(){

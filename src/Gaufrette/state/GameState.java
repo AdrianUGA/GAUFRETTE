@@ -26,21 +26,25 @@ public class GameState implements State {
 
     @Override
     public void update() {
+        System.out.println(this.jeu.getJoueurCourant() + ", c'est a toi de jouer");
         if(this.jeu.partieTerminee()){
             this.gsm.change("menu");
             System.out.println(this.jeu.getJoueurCourant() + ", tu as perdu");
+        } else if(this.jeu.getJoueurCourant().getType().equals("ia")){
+            this.jeu.jouer(this.jeu.getJoueurCourant().jouer());
         }
     }
 
     @Override
     public void render() {
-        System.out.println(this.jeu.getJoueurCourant() + ", c'est a toi de jouer");
         GridGaufrette gg = new GridGaufrette(this.jeu.getGaufre());
         GridPane dd = gg.getGridGaufrette();
         Group root = new Group();
         root.getChildren().add(dd);
         Scene scene = new Scene(root, 500, 500, Color.WHITE);
-        scene.addEventFilter(MouseEvent.MOUSE_PRESSED, new HumanController(this.jeu));
+        if(this.jeu.getJoueurCourant().getType().equals("humain")){
+            scene.addEventFilter(MouseEvent.MOUSE_PRESSED, new HumanController(this.jeu));
+        }
         this.primaryStage.setScene(scene);
     }
 
