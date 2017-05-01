@@ -1,7 +1,5 @@
 package Gaufrette.Model;
 
-import Gaufrette.Vue.App;
-
 public class Jeu {
 
 	private Gaufre gaufre;
@@ -12,19 +10,38 @@ public class Jeu {
 		this.joueurs = new Joueur[2];
 	}
 	
-	public void nouveauJeu(Joueur j1, Joueur j2, int largeurGaufre, int hauteurGaufre){
-        this.joueurCourant = 0;
-		this.joueurs[0] = j1;
-        this.joueurs[1] = j2;
+	public void nouveauJeu(int largeurGaufre, int hauteurGaufre){
 		this.gaufre = new Gaufre(largeurGaufre, hauteurGaufre);
-	}
+        this.joueurCourant = 0;
+    }
+
+	public void setJoueur1(String type, String nom){
+	    if (type.equals("humain")){
+	        this.joueurs[0] = new Humain(nom);
+        }else{
+	        //TODO change to ia
+	        this.joueurs[0] = new Humain(nom);
+        }
+    }
+
+    public void setJoueur2(String type, String nom){
+        if (type.equals("humain")){
+            this.joueurs[1] = new Humain(nom);
+        }else{
+            //TODO change to ia
+            this.joueurs[1] = new Humain(nom);
+        }
+    }
 
 	public boolean coupEstValide(Coordonnees c){
         return this.gaufre.peutManger(c);
     }
 
-    public void jouerCoup(Coordonnees c){
-        this.gaufre.manger(c);
+    public void jouer(Coordonnees c){
+	    if (this.coupEstValide(c)){
+            this.gaufre.manger(c);
+            this.nextJoueur();
+        }
 	}
 
     public void nextJoueur(){

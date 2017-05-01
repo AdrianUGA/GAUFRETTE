@@ -49,4 +49,12 @@ public class Gaufre {
     	return this.cases;
     }
 
+    public int getLargeur(){
+    	return this.largeur;
+	}
+
+	public int getHauteur(){
+    	return this.hauteur;
+	}
+
 }
