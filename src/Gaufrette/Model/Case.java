@@ -24,10 +24,6 @@ public enum Case {
 		return this.type == 2;
 	}
 
-	public void manger() {
-		this.type = 2;
-	}
-
 	public String toString(){
 		return ""+this.type;
 	}

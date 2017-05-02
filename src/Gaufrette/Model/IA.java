@@ -1,6 +1,6 @@
 package Gaufrette.Model;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public class IA implements Joueur{
 
@@ -136,6 +136,7 @@ public class IA implements Joueur{
 		int maxWidthForSpecificHeight=0;
 		int x = 0;
 		int y = 0;
+		Random r = new Random();
 		
 		if(waffle[1][0] != Case.MANGEE){ // We check if we have at least 2 lines not eaten
 			minHeight = 1;
@@ -156,7 +157,7 @@ public class IA implements Joueur{
 			}
 		}
 		
-		x = ThreadLocalRandom.current().nextInt(minHeight, maxHeight); // Choosing the line
+		x = r.nextInt((maxHeight - minHeight)) + minHeight; // Choosing the line
 		
 		for(int i=0; i<waffle[x].length;i++){ // Calculating the amount of columns not eaten in our line
 			if(waffle[x][i] != Case.MANGEE){
@@ -166,7 +167,7 @@ public class IA implements Joueur{
 		
 		if(x == 1 && (maxHeight == maxWidth + 1 || maxHeight == maxWidth - 1)){
 			do{
-				y = ThreadLocalRandom.current().nextInt(minWidth, maxWidthForSpecificHeight);
+				y = r.nextInt((maxWidthForSpecificHeight-minWidth)) + minWidth;
 			}while(y==1);
 		}
 		
@@ -177,6 +178,7 @@ public class IA implements Joueur{
 	private Coordonnees jouerCommeUnNul() { // EASY
 		
 		Case [][] waffle = this.jeu.getGaufre().getCases();
+		Random r = new Random();
 		
 		// Easy AI will play randomly, but won't eat the poisoned piece, except if it has no choice
 		
@@ -194,21 +196,25 @@ public class IA implements Joueur{
 		
 		for(int i=0; i<waffle.length;i++){ // Calculating the amount of lines not eaten yet
 			if(waffle[i][0] != Case.MANGEE){
-				maxHeight = i;
+				maxHeight = i+1;
 			}
 		}
 		
-		int x = ThreadLocalRandom.current().nextInt(minHeight, maxHeight); // Choosing the line
+		int x = r.nextInt((maxHeight-minHeight)) + minHeight; // Choosing the line
 		
 		for(int i=0; i<waffle[x].length;i++){ // Calculating the amount of columns not eaten in our line
 			if(waffle[x][i] != Case.MANGEE){
-				maxWidth = i;
+				maxWidth = i+1;
 			}
 		}
 		
-		int y = ThreadLocalRandom.current().nextInt(minWidth, maxWidth);
+		System.out.println("minWidth =" + minWidth + " maxWidth = "+ maxWidth);
 		
-		return new Coordonnees(x,y);
+		int y = r.nextInt((maxWidth-minWidth)) + minWidth;
+		
+		System.out.println("x =" + x + " y=" + y);
+		
+		return new Coordonnees(y,x);
 		// DONE
 	}
 	
